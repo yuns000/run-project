@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h1>Welcome to the Login Page</h1>
+    
+    <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <a href="{% url 'accounts:account_creation' %}">Create an account</a><br><br>
+        
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
