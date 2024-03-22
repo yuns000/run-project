@@ -4,10 +4,7 @@
     <h1>Create an Account</h1>
     <form method="POST" action="{% url 'accounts:account_creation' %}">
         {% csrf_token %}
-        <div>
-            <label for="id">ID:</label>
-            <input type="text" id="id" name="id" required>
-        </div>
+        <label>계정 생성 조건 : 이메일 중복 불가</label>
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
@@ -26,4 +23,5 @@
         </div>
         <button type="submit">Create Account</button>
     </form>
+    <a href="{% url 'accounts:login' %}" class="btn">Go back to Login</ㅁ>
 {% endblock %}

@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login Page</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Welcome to the Login Page</h1>
     
     <form action="{% url 'accounts:login' %}" method="post">
@@ -18,5 +15,4 @@
         
         <input type="submit" value="Login">
     </form>
-</body>
-</html>
+{% endblock %}
