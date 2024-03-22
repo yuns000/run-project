@@ -1,3 +1,10 @@
 **/__pycache__/
 __pycache__/
 venv/
+run/run/__pycache__/__init__.cpython-312.pyc
+run/run/__pycache__/settings.cpython-312.pyc
+run/run/__pycache__/urls.cpython-312.pyc
+run/run/__pycache__/wsgi.cpython-312.pyc
+run/map/__pycache__/__init__.cpython-312.pyc
+run/map/__pycache__/urls.cpython-312.pyc
+run/map/__pycache__/views.cpython-312.pyc

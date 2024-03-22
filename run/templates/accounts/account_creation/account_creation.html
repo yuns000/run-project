@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Create an Account</h1>
+    <form method="POST" action="{% url 'accounts:account_creation' %}">
+        {% csrf_token %}
+        <label>계정 생성 조건 : 이메일 중복 불가</label>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+        </div>
+        <button type="submit">Create Account</button>
+    </form>
+    <a href="{% url 'accounts:login' %}" class="btn">Go back to Login</ㅁ>
+{% endblock %}
