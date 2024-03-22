@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Create an Account</h1>
-    <form method="POST" action="{% url 'account_creation' %}">
+    <form method="POST" action="{% url 'accounts:account_creation' %}">
         {% csrf_token %}
         <div>
             <label for="id">ID:</label>
