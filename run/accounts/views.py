@@ -8,11 +8,11 @@ from .models import User
 from .serializers import (AccountCreationSerializer, LoginSerializer,
                           UserSerializer)
 
-
+ACCOUNTS_TAG = 'accounts'
 class UserViewSet(viewsets.GenericViewSet):
     serializer_class = UserSerializer
 
-    @swagger_auto_schema(request_body=LoginSerializer)
+    @swagger_auto_schema(request_body=LoginSerializer, tags=[ACCOUNTS_TAG])
     @action(detail=False, methods=['post'])
     def login(self, request):
         serializer = LoginSerializer(data=request.data)
@@ -29,10 +29,9 @@ class UserViewSet(viewsets.GenericViewSet):
         else:
             success = False
             message = 'Email or password is incorrect'
-        
         return Response({'success': success, 'message': message})
 
-    @swagger_auto_schema(request_body=AccountCreationSerializer)
+    @swagger_auto_schema(request_body=AccountCreationSerializer, tags=[ACCOUNTS_TAG])
     @action(detail=False, methods=['post'])
     def account_creation(self, request):
         email = request.data.get('email')
@@ -47,5 +46,4 @@ class UserViewSet(viewsets.GenericViewSet):
             User.create_user(email, password, username, location)
             message = 'success'
             success = True
-
         return Response({'success': success, 'message' : message})
