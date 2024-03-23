@@ -12,5 +12,5 @@ schema_view = views.schema_view(
 
 urlpatterns = [
     path('api_docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('api/users/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
