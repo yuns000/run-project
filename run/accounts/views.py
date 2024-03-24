@@ -3,7 +3,10 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework_jwt.settings import api_settings
+from rest_framework_simplejwt.tokens import RefreshToken
 
+from .Account import Account
 from .models import User
 from .serializers import (AccountCreationSerializer, LoginSerializer,
                           UserSerializer)
@@ -11,6 +14,7 @@ from .serializers import (AccountCreationSerializer, LoginSerializer,
 ACCOUNTS_TAG = 'accounts'
 class UserViewSet(viewsets.GenericViewSet):
     serializer_class = UserSerializer
+    obj_account = Account()
 
     @swagger_auto_schema(request_body=LoginSerializer, tags=[ACCOUNTS_TAG])
     @action(detail=False, methods=['post'])
@@ -21,15 +25,7 @@ class UserViewSet(viewsets.GenericViewSet):
         email = serializer.validated_data.get('email')
         password = serializer.validated_data.get('password')
 
-        user = User.objects.filter(email=email).first()
-        if user is not None and check_password(password, user.password):
-            request.session['user'] = user.id
-            success = True
-            message = f'{email} : login success'
-        else:
-            success = False
-            message = 'Email or password is incorrect'
-        return Response({'success': success, 'message': message})
+        return self.obj_account.login(email, password)
 
     @swagger_auto_schema(request_body=AccountCreationSerializer, tags=[ACCOUNTS_TAG])
     @action(detail=False, methods=['post'])
@@ -39,11 +35,4 @@ class UserViewSet(viewsets.GenericViewSet):
         username = request.data.get('username')
         location = request.data.get('location')
         
-        if User.objects.filter(email=email).exists():
-            message = 'Email already exists'
-            success = False
-        else:
-            User.create_user(email, password, username, location)
-            message = 'success'
-            success = True
-        return Response({'success': success, 'message' : message})
+        return self.obj_account.account_creation(email, password, username, location)
